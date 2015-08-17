@@ -24,12 +24,11 @@ public class when_sending_rover_position {
 	
 	@Test
 	public void valid_rover_commands_accepted() throws Exception {
-		command.executeMovementCommands("1 2 N", good_command);
-		Position pos = command.getStartPosition();
+		Position pos = command.executeMovementCommands("1 2 N", good_command);
 		assertThat(pos.getFacing()).isEqualTo("N");
 		Point coords = pos.getCoordinates();
-		assertThat(coords.getX()).isEqualTo(1);
-		assertThat(coords.getY()).isEqualTo(2);
+		assertThat(coords.getX()).isEqualTo(0);
+		assertThat(coords.getY()).isEqualTo(1);
 	}
 	
 	@Test

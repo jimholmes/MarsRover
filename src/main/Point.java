@@ -20,10 +20,19 @@ public class Point {
 		x = coords[0];
 		y = coords[1];
 	}
+	
+	public int getX() {
+		return x;
+	}
+	public int getY() {
+		return y;
+	}
+	
 	private int[] parseCoordsInput(String input) {
 		String[] tokens = checkInputStringLength(input);
 		return convertInputStringIntoArray(tokens);
 	}
+	
 	private int[] convertInputStringIntoArray(String[] tokens) {
 		int x = Integer.parseInt(tokens[0]);
 		int y = Integer.parseInt(tokens[1]);
@@ -54,10 +63,5 @@ public class Point {
 		}
 		return tokens;
 	}
-	public int getX() {
-		return x;
-	}
-	public int getY() {
-		return y;
-	}
+
 }
