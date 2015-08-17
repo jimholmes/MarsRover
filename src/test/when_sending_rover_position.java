@@ -13,6 +13,8 @@ import static org.assertj.core.api.Assertions.*;
 public class when_sending_rover_position {
 
 	CommandHandler command;
+	String good_position = "0 0 N";
+	String good_command = "M";
 
 	@Before
 	public void run_before_each() {
@@ -22,7 +24,8 @@ public class when_sending_rover_position {
 	
 	@Test
 	public void valid_rover_commands_accepted() throws Exception {
-		Position pos = command.setRoverPosition("1 2 N");
+		command.executeMovementCommands("1 2 N", good_command);
+		Position pos = command.getStartPosition();
 		assertThat(pos.getFacing()).isEqualTo("N");
 		Point coords = pos.getCoordinates();
 		assertThat(coords.getX()).isEqualTo(1);
@@ -32,7 +35,7 @@ public class when_sending_rover_position {
 	@Test
 	public void invalid_facing_throws() throws Exception {
 		try {
-			command.setRoverPosition("1 2 F");
+			command.executeMovementCommands("1 2 F", good_command);
 			fail("IllegalArgumentException not thrown");
 		} catch (IllegalArgumentException e) {
 			assertThat(e.getMessage()).isEqualTo(
@@ -43,7 +46,7 @@ public class when_sending_rover_position {
 	@Test
 	public void negative_position_throws() throws Exception {
 		try {
-			command.setRoverPosition("-1 -3 N");
+			command.executeMovementCommands("-1 -3 N", good_command);
 			fail("IllegalArgumentException not thrown.");
 		} catch (IllegalArgumentException e) {
 			assertThat(e.getMessage()).isEqualTo(
@@ -54,7 +57,7 @@ public class when_sending_rover_position {
 	@Test
 	public void setting_rover_outside_plateau_throws() throws Exception {
 		try {
-			command.setRoverPosition("4 4 N");
+			command.executeMovementCommands("4 4 N", good_command);
 			fail("IllegalArgumentException not thrown.");
 		} catch (IllegalArgumentException e) {
 			assertThat(e.getMessage()).isEqualTo(
