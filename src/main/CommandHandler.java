@@ -32,13 +32,16 @@ public class CommandHandler {
 	}
 
 	private Position setStartPosition(String position) {
-		String working = position.trim();
-		Point point = new Point(working.substring(0, working.length() - 1));
+		Point point = getPointFromPositionString(position);
 		checkPositionIsInBounds(point);
-		String facing = parseFacingInput(working);
-		currentFacing = facing;
-		startPosition = new Position(facing, point);
+		currentFacing = parseFacingInput(position.trim());
+		startPosition = new Position(currentFacing, point);
 		return startPosition;
+	}
+
+	private Point getPointFromPositionString(String position) {
+		String working = position.trim();
+		return new Point(working.substring(0, working.length() - 1));
 	}
 
 	private void checkPositionIsInBounds(Point point) {
