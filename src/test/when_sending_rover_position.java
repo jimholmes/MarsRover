@@ -49,7 +49,7 @@ public class when_sending_rover_position {
 			fail("IllegalArgumentException not thrown.");
 		} catch (IllegalArgumentException e) {
 			assertThat(e.getMessage()).isEqualTo(
-					"Coordinates must be greater than zero: -1, -3");
+					"Coordinates must be greater than zero: -1 -3");
 		}
 	}
 
@@ -60,7 +60,7 @@ public class when_sending_rover_position {
 			fail("IllegalArgumentException not thrown.");
 		} catch (IllegalArgumentException e) {
 			assertThat(e.getMessage()).isEqualTo(
-					"Rover coordinates outside plateau bounds: 4, 4");
+					"Rover coordinates outside plateau bounds: 4 4");
 		}
 	}
 }

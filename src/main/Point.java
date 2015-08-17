@@ -29,39 +29,40 @@ public class Point {
 	}
 	
 	private int[] parseCoordsInput(String input) {
-		String[] tokens = checkInputStringLength(input);
-		return convertInputStringIntoArray(tokens);
+		String working = input.trim();
+		checkInputStringLength(working);
+		return convertInputStringIntoArray(working);
 	}
 	
-	private int[] convertInputStringIntoArray(String[] tokens) {
+	private int[] convertInputStringIntoArray(String input) {
+		String[] tokens = input.split(" ");
 		int x = Integer.parseInt(tokens[0]);
 		int y = Integer.parseInt(tokens[1]);
-		if (x < 0 || y < 0) {
-			throw new IllegalArgumentException(
-					"Coordinates must be greater than zero: " + x + ", " + y);
-		}
+		areCoordsArePositive(x, y);
 		int[] out = new int[2];
 		out[0] = x;
 		out[1] = y;
 
 		return out;
 	}
+	private Boolean areCoordsArePositive(int x, int y) {
+		if (x < 0 || y < 0) {
+			throw new IllegalArgumentException(
+					"Coordinates must be greater than zero: " + x + " " + y);
+		}
+		return true;
+	}
 
-	private String[] checkInputStringLength(String input) {
+	private void checkInputStringLength(String input) {
 		String[] tokens = input.split(" ");
 		if (tokens.length < 2) {
 			throw new IllegalArgumentException(
-					"Too few input coordinates. Only got one: " + tokens[0]);
+					"Too few input coordinates. Only got one: " + input);
 		}
 		if (tokens.length > 2) {
-			String out = "";
-			for (String token : tokens) {
-				out += " " + token;
-			}
-			throw new IllegalArgumentException("Too many input coordinates:"
-					+ out);
+			throw new IllegalArgumentException("Too many input coordinates: "
+					+ input);
 		}
-		return tokens;
 	}
 
 }

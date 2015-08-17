@@ -38,27 +38,4 @@ public class when_sending_coordinate_commands {
 					"Too many input coordinates: 1 2 3");
 		}
 	}
-
-	@Test
-	public void invalid_plateau_bounds_throws() throws Exception {
-		try {
-			command.setPlateauBound("-1,-3");
-			fail("IllegalArgumentException not thrown.");
-		} catch (IllegalArgumentException e) {
-			assertThat(e.getMessage()).isEqualTo(
-					"Coordinates must be greater than zero: -1, -3");
-		}
-	}
-	
-	@Test
-	public void char_inputs_throws() throws Exception {
-		try {
-			command.setPlateauBound("a,Z");
-			fail("NumberFormatException not thrown.");
-		} catch (IllegalArgumentException e) {
-			assertThat(e.getMessage()).isEqualTo(
-					"For input string: \"a\"");
-		}
-	}
-
 }

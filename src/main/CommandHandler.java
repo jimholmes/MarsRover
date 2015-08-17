@@ -48,7 +48,7 @@ public class CommandHandler {
 		if (point.getX() > bounds.getX() || point.getY() > bounds.getY()) {
 			throw new IllegalArgumentException(
 					"Rover coordinates outside plateau bounds: " + point.getX()
-							+ ", " + point.getY());
+							+ " " + point.getY());
 		}
 	}
 
