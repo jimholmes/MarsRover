@@ -2,8 +2,8 @@ package main;
 
 public class Point {
 
-	 int x;
-	 int y;
+	 private int x;
+	 private int y;
 	
 	public Point(int[]coords) {
 		x = coords[0];

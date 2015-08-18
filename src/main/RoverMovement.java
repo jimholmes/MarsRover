@@ -11,7 +11,7 @@ public class RoverMovement {
 		this.currentPosition = currentPosition;
 	}
 
-	public void execute(String commands) {
+	public Position execute(String commands) {
 		for (int index = 0; index < commands.length(); index++) {
 			String command = String.valueOf(commands.charAt(index));
 			if (isTurn(command)) {
@@ -21,11 +21,12 @@ public class RoverMovement {
 			}
 		}
 		updateFacingForCurrentPosition();
+		return currentPosition;
 	}
 	
 	private void handleMove() {
-		int x = 	currentPosition.getCoordinates().x;
-		int y = 		currentPosition.getCoordinates().y;
+		int x = 	currentPosition.getCoordinates().getX();
+		int y = 		currentPosition.getCoordinates().getY();
 		switch (currentFacing) {
 		case "N":
 			y++;
@@ -40,11 +41,11 @@ public class RoverMovement {
 			x--;
 			break;
 		}
-		if (x < 0 || y < 0 || x > bounds.x || y > bounds.y) {
+		if (x < 0 || y < 0 || x > bounds.getX() || y > bounds.getY()) {
 			throw new IllegalArgumentException("Move would cross plateau bounds.");
 		}
-		currentPosition.getCoordinates().x = x;
-		currentPosition.getCoordinates().y = y;
+		
+		currentPosition = new Position(currentFacing, new Point(x, y));
 	}
 
 	private void handleTurns(String turn) {

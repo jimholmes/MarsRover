@@ -23,7 +23,7 @@ public class CommandHandler {
 	protected Position executeMovementCommands(String position, String commands) {
 		startPosition = setStartPosition(position);
 		RoverMovement rover = new RoverMovement(currentPosition, bounds);
-		rover.execute(commands);
+		currentPosition = rover.execute(commands);
 		return currentPosition;
 
 	}
