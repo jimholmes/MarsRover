@@ -28,27 +28,6 @@ public class when_sending_rover_position {
 		assertThat(coords.getY()).isEqualTo(1);
 	}
 	
-	@Test
-	public void invalid_facing_throws() throws Exception {
-		try {
-			command.executeMovementCommands("1 2 F", good_command);
-			fail("IllegalArgumentException not thrown");
-		} catch (IllegalArgumentException e) {
-			assertThat(e.getMessage()).isEqualTo(
-					"Position input must be N,S,E,W: F");
-		}
-	}
-
-	@Test
-	public void negative_position_throws() throws Exception {
-		try {
-			command.executeMovementCommands("-1 -3 N", good_command);
-			fail("IllegalArgumentException not thrown.");
-		} catch (IllegalArgumentException e) {
-			assertThat(e.getMessage()).isEqualTo(
-					"Coordinates must be greater than zero: -1 -3");
-		}
-	}
 
 	@Test
 	public void setting_rover_outside_plateau_throws() throws Exception {

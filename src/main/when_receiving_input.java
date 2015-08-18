@@ -13,6 +13,15 @@ public class when_receiving_input {
 	String sep = ";";
 
 	@Test
+	public void valid_move_returns_correct_final_position() throws Exception {
+		cleaner = new InputCleanser("3 3;0 0 N;MMMRMMM");
+		Position result = cleaner.execute();
+		assertThat(result.getCoordinates().getX()).isEqualTo(3);
+		assertThat(result.getCoordinates().getY()).isEqualTo(3);
+		assertThat(result.getFacing()).isEqualTo("E");
+	}
+	
+	@Test
 	public void too_few_input_tokens_throws() throws Exception {
 		try {
 			cleaner = new InputCleanser("foo;bar");
@@ -77,4 +86,17 @@ public class when_receiving_input {
 					"Position requires three items: ");
 		}
 	}
+	
+	@Test
+	public void invalid_commands_throw() throws Exception {
+		try {
+			cleaner = new InputCleanser(validBounds + sep + validPosition + sep + "LBRM");
+			fail("IllegalArgumentException not thrown!");
+		} catch (IllegalArgumentException e) {
+			assertThat(e.getMessage())
+					.isEqualTo(
+							"Illegal movement command detected. Only 'LRM' allowed: LBRM");
+		}
+	}
+	
 }

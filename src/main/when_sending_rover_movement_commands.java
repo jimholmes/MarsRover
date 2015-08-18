@@ -17,18 +17,6 @@ public class when_sending_rover_movement_commands {
 	}
 
 	@Test
-	public void invalid_commands_throw() throws Exception {
-		try {
-			command.executeMovementCommands(good_position, "LBRM");
-			fail("IllegalArgumentException not thrown!");
-		} catch (IllegalArgumentException e) {
-			assertThat(e.getMessage())
-					.isEqualTo(
-							"Illegal movement command detected. Only 'LRM' allowed: LBRM");
-		}
-	}
-	
-	@Test
 	public void move_straight_one_returns_correct_position() throws Exception {
 		Position pos = command.executeMovementCommands(good_position, "M");
 		assertThat(pos.getCoordinates().getX()).isEqualTo(0);

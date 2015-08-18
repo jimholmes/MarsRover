@@ -24,7 +24,6 @@ public class CommandHandler {
 	
 	protected Position executeMovementCommands(String position, String commands) {
 		startPosition = setStartPosition(position);
-		validateMovementCommands(commands);
 		RoverMovement rover = new RoverMovement(currentPosition, bounds);
 		rover.execute(commands);
 		return currentPosition;
@@ -57,14 +56,6 @@ public class CommandHandler {
 		return tokens[2].toUpperCase();
 	}
 
-	private void validateMovementCommands(String commands) {
-		Pattern validCommands = Pattern.compile("[^LRM]+");
-		Matcher match = validCommands.matcher(commands);
-		if (match.find()) {
-			throw new IllegalArgumentException(
-					"Illegal movement command detected. Only 'LRM' allowed: "
-							+ commands);
-		}
-	}
+	
 
 }

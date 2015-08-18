@@ -1,5 +1,8 @@
 package main;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class InputCleanser {
 
 	String boundary = "";
@@ -12,6 +15,12 @@ public class InputCleanser {
 		position = parsePosition(tokens[1]);
 		moves = parseMoves(tokens[2]);
 	}
+	
+	public Position execute() {
+		CommandHandler handler = new CommandHandler();
+		handler.setPlateauBound(boundary);
+		return handler.executeMovementCommands(position, moves);
+	}
 
 	private String[] splitInput(String input) {
 		String[] tokens = input.split(";");
@@ -23,32 +32,32 @@ public class InputCleanser {
 		return tokens;
 	}
 
-	private String parseMoves(String input) {
-		// TODO Auto-generated method stub
-		return null;
+	private String parseMoves(String commands) {
+		return validateMovementCommands(commands);
 	}
 
-	private String parsePosition(String input) {
-		validateNumberOfPositionTokens(input);
-		String coords = validateCoordinateString(input);
-		String facing = validateFacingInput(input);
+	private String parsePosition(String position) {
+		validateNumberOfPositionTokens(position);
+		String coords = validateCoordinateString(position);
+		String facing = validateFacingInput(position);
 		return coords + " " + facing;
 	}
+	
+	private String parseBoundary(String bounds) {
+		return validateCoordinateString(bounds);
+	}
+	
 
-	private void validateNumberOfPositionTokens(String input) {
-		String[] tokens = input.split(" ");
+	private void validateNumberOfPositionTokens(String position) {
+		String[] tokens = position.split(" ");
 		if (tokens.length != 3) {
 			throw new IllegalArgumentException(
-					"Position requires three items: " + input);
+					"Position requires three items: " + position);
 		}
 	}
 
-	private String parseBoundary(String input) {
-		return validateCoordinateString(input);
-	}
-	
-	private String validateFacingInput(String input) {
-		String[] tokens = input.split(" ");
+	private String validateFacingInput(String position) {
+		String[] tokens = position.split(" ");
 		if (!Position.ALLOWED_FACINGS.contains(tokens[2].toUpperCase())) {
 			throw new IllegalArgumentException(
 					"Position input must be N,S,E,W: " + tokens[2]);
@@ -56,8 +65,8 @@ public class InputCleanser {
 		return tokens[2].toUpperCase();
 	}
 
-	private String validateCoordinateString(String input) {
-		String[] tokens = input.split(" ");
+	private String validateCoordinateString(String coords) {
+		String[] tokens = coords.split(" ");
 		String xString = tokens[0];
 		String yString = tokens[1];
 		int x = Integer.parseInt(xString);
@@ -68,5 +77,17 @@ public class InputCleanser {
 		}
 		return xString + " " + yString;
 	}
+	
+	private String validateMovementCommands(String commands) {
+		Pattern validCommands = Pattern.compile("[^LRM]+");
+		Matcher match = validCommands.matcher(commands);
+		if (match.find()) {
+			throw new IllegalArgumentException(
+					"Illegal movement command detected. Only 'LRM' allowed: "
+							+ commands);
+		}
+		return commands;
+	}
 
+	
 }
