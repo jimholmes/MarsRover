@@ -1,7 +1,5 @@
-package test;
+package main;
 
-import main.CommandHandler;
-import main.Position;
 import static org.assertj.core.api.Assertions.*;
 
 import org.junit.Before;

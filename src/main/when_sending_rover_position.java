@@ -1,9 +1,5 @@
-package test;
+package main;
 
-
-import main.CommandHandler;
-import main.Point;
-import main.Position;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +9,7 @@ import static org.assertj.core.api.Assertions.*;
 public class when_sending_rover_position {
 
 	CommandHandler command;
+	String good_boundary = "3 3";
 	String good_position = "0 0 N";
 	String good_command = "M";
 

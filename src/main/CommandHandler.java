@@ -17,12 +17,12 @@ public class CommandHandler {
 		currentFacing = "N";
 	}
 
-	public Point setPlateauBound(String input) {
+	protected Point setPlateauBound(String input) {
 		bounds = new Point(input);
 		return bounds;
 	}
 	
-	public Position executeMovementCommands(String position, String commands) {
+	protected Position executeMovementCommands(String position, String commands) {
 		startPosition = setStartPosition(position);
 		validateMovementCommands(commands);
 		RoverMovement rover = new RoverMovement(currentPosition, bounds);
@@ -54,14 +54,6 @@ public class CommandHandler {
 
 	private String parseFacingInput(String input) {
 		String[] tokens = input.split(" ");
-		if (tokens.length != 3) {
-			throw new IllegalArgumentException(
-					"Position input must be three items long: " + input);
-		}
-		if (!Position.ALLOWED_FACINGS.contains(tokens[2].toUpperCase())) {
-			throw new IllegalArgumentException(
-					"Position input must be N,S,E,W: " + tokens[2]);
-		}
 		return tokens[2].toUpperCase();
 	}
 

@@ -1,7 +1,4 @@
-package test;
-import main.CommandHandler;
-import main.Point;
-
+package main;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.*;
